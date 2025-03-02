@@ -1,5 +1,5 @@
 import { DataAPIClient } from "@datastax/astra-db-ts"
-import { PuppeteerWebBaseLoader } from "@langchain/community/document_loaders/web/puppeteer"
+import { PuppeteerWebBaseLoader } from "langchain/document_loaders/web/puppeteer"
 import OpenAI from "openai"
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter"
 
@@ -13,3 +13,8 @@ const { ASTRA_DB_NAMESPACE ,
     }= process.env
 
 const openai = new OpenAI({ apiKey : OPENAI_API_KEY })
+
+const f1Data = [
+    'https://en.wikipedia.org/wiki/Formula_One',
+    'https://www.formula1.com/en/latest/all',
+]
