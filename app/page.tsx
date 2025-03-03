@@ -3,10 +3,16 @@ import Image from "next/image"
 import f1GPTLogo from "./assets/f1-logo.png"
 import { useChat } from 'ai/react';
 import { Message } from "ai"
+import Bubble from "./components/Bubble"
+import LoadingBubble from "./components/LoadingBubble";
+import PromptSuggestionsRow from "./components/PromptSuggestionsRow";
 
 const Home = () => {
+    const handlePrompt = () => {
+
+    }
     const { append , isLoading , messages, input , handleInputChange , handleSubmit} = useChat()
-    const noMessages = true
+    const noMessages = false
     return (
         <main>
             <Image src={f1GPTLogo} width="250" height="250" alt="F1GPT"/>
@@ -18,13 +24,13 @@ const Home = () => {
                             Ask anything about the fantastic topics of formula one racing
                         </p>
                         <br/>
-                        {/*<PromptSuggestionRow/>*/}
+                        {<PromptSuggestionsRow onPromptClick={handlePrompt}/>}
                     </>
 
                 ) : (
                     <>
-                        {/*map messages onto text bubbles */}
-                        {/*<LoadingBubble />*/}
+                        {messages.map((message , index) => <Bubble key={`message-${index}`} message={message}/>)}
+                        {isLoading && <LoadingBubble />}
                     </>
                 )}
                 
