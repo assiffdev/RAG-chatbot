@@ -1,15 +1,16 @@
 "use client"
 import Image from "next/image"
-import F1Logo from "./assets/f1-logo.png"
-import { useChat } from "ai/react"
+import f1GPTLogo from "./assets/f1-logo.png"
+import { useChat } from 'ai/react';
 import { Message } from "ai"
 
 const Home = () => {
+    const { append , isLoading , messages, input , handleInputChange , handleSubmit} = useChat()
     const noMessages = true
     return (
         <main>
-            <Image src={F1Logo} width="250" height="250" alt="F1GPT"/>
-            <section>
+            <Image src={f1GPTLogo} width="250" height="250" alt="F1GPT"/>
+            <section className= {noMessages ? "" : "populated"}>
                 {noMessages ? (
                     <>
                         <p className="starter-text">
@@ -26,7 +27,15 @@ const Home = () => {
                         {/*<LoadingBubble />*/}
                     </>
                 )}
+                
+               
+            
             </section>
+            <form onSubmit= {handleSubmit}>
+                    <input className="question-box" onChange={handleInputChange} value={input} placeholder="Ask something about Formula one"/>
+                    <input type="submit" />
+
+            </form>
         </main>
     )
 }
