@@ -62,6 +62,16 @@ input[type=submit]{
 input:focus{
     outline: none;
 }
+.bubble.user{
+    border-radius: 20px 20px 0 20px;
+    background-color: #E1F4FFFF;
+    margin-left: auto;
+}
+.bubble.assistant{
+    border-radius: 20px 20px  20px 0;
+    background-color: #dce7ff;
+   
+}
 .bubble {
     margin: 8px;
     padding: 8px;

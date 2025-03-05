@@ -8,11 +8,16 @@ import LoadingBubble from "./components/LoadingBubble";
 import PromptSuggestionsRow from "./components/PromptSuggestionsRow";
 
 const Home = () => {
-    const handlePrompt = () => {
-
+    const handlePrompt = (promptText) => {
+        const msg:Message = {
+            id: crypto.randomUUID(),
+            content: promptText ,
+            role: "user"
+        }
+        append(msg)
     }
     const { append , isLoading , messages, input , handleInputChange , handleSubmit} = useChat()
-    const noMessages = false
+    const noMessages = !messages || messages.length == 0
     return (
         <main>
             <Image src={f1GPTLogo} width="250" height="250" alt="F1GPT"/>
