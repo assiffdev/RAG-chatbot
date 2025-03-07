@@ -1,5 +1,5 @@
 import OpenAI  from "openai";
-import { OpenAIStream , StreamingTextResponse} from "ai"
+import { OpenAIStream , StreamingTextResponse } from "ai"
 import { DataAPIClient } from "@datastax/astra-db-ts";
 import { Models } from "openai/resources/models.mjs";
 
@@ -66,7 +66,7 @@ export async function POST(req: Request){
         }
         const response = await openai.chat.completions.create(
             {
-                model: 'chatgpt-4',
+                model: 'gpt-4',
                 stream: true,
                 messages: [template, ...messages]
             }
