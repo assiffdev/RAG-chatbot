@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import f1GPTLogo from "./assets/f1-logo.png"
+import f1GPTLogo from "./assets/f1-logo.jpg"
 import { useChat } from 'ai/react';
 import { Message } from "ai"
 import Bubble from "./components/Bubble"
