@@ -19,11 +19,12 @@ const db = client.db(ASTRA_DB_API_ENDPOINT , {namespace: ASTRA_DB_NAMESPACE})
 
 export async function POST(req: Request){
     try{
+        //extract latest message 
         const { messages } = await req.json()
         const latestMessage = messages[messages.length - 1]?.content;
 
         let docContext = '';
-
+        //convert latest message to vector to perform semantic search based on vector similarity
         const embedding = await openai.embeddings.create({
             model:"text-embedding-3-small",
             input: latestMessage,
@@ -32,6 +33,8 @@ export async function POST(req: Request){
         
         try{
             const collection = await db.collection(ASTRA_DB_COLLECTION);
+            //This is an object returned by the collection.find() 
+            // method, which is used to query documents from Astra DB based on vector similarity.
             const cursor = collection.find(null, {
                 sort:{
                     $vector:embedding.data[0].embedding,
@@ -40,6 +43,8 @@ export async function POST(req: Request){
             })
 
             const documents = await cursor.toArray();
+            // to transform the documents array by extracting text property of each object.
+            // the docsMap is just array of text
             const docsMap = documents?.map(doc => doc.text);
             docContext = JSON.stringify(docsMap)
         }catch(err){
@@ -68,7 +73,7 @@ export async function POST(req: Request){
             {
                 model: 'gpt-4',
                 stream: true,
-                messages: [template, ...messages]
+                messages: [template, ...messages] //Passes the system prompt (template) followed by the conversation history.
             }
         );
         const stream = OpenAIStream(response);
